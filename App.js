@@ -5,8 +5,8 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset, useAssets } from "expo-asset";
-
-SplashScreen.preventAutoHideAsync();
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./navigation/Tabs";
 
 export default function App() {
   const [asset] = useAssets([require("./me.png")]);
@@ -14,5 +14,9 @@ export default function App() {
   if (!asset || !loaded) {
     return <AppLoading />;
   }
-  return <Text>We are done loading</Text>;
+  return (
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
+  );
 }
