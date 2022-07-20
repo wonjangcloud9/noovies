@@ -24,7 +24,7 @@ const Stack = () => (
   <NativeStack.Navigator
     screenOptions={{
       presentation: "modal",
-      headerTintColor: "white",
+      headerTintColor: "black",
       headerBackTitleVisible: false,
     }}
   >
