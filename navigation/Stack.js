@@ -21,7 +21,13 @@ const ScreenThree = ({ navigation: { goBack } }) => (
 const NativeStack = createNativeStackNavigator();
 
 const Stack = () => (
-  <NativeStack.Navigator>
+  <NativeStack.Navigator
+    screenOptions={{
+      presentation: "modal",
+      headerTintColor: "white",
+      headerBackTitleVisible: false,
+    }}
+  >
     <NativeStack.Screen name="One" component={ScreenOne} />
     <NativeStack.Screen name="Two" component={ScreenTwo} />
     <NativeStack.Screen name="Three" component={ScreenThree} />
