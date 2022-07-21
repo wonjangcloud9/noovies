@@ -15,16 +15,16 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: isDark ? Black : White,
+          backgroundColor: isDark ? "#d2dae2" : "#1e272e",
         },
-        tabBarActiveTintColor: isDark ? White : Black,
-        tabBarInActiveTintColor: isDark ? White : Black,
+        tabBarActiveTintColor: isDark ? "#1e272e" : "#d2dae2",
+        tabBarInActiveTintColor: isDark ? "#1e272e" : "#d2dae2",
         headerStyle: {
-          backgroundColor: isDark ? Black : White,
-          borderBottomColor: isDark ? Black : White,
+          backgroundColor: isDark ? "#d2dae2" : "#1e272e",
+          borderBottomColor: isDark ? "#d2dae2" : "#1e272e",
         },
         headerTitleStyle: {
-          color: isDark ? White : Black,
+          color: isDark ? "#1e272e" : "#d2dae2",
         },
       }}
     >
