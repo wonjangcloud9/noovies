@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
-import { Text } from "react-native";
 import { BlurView } from "expo-blur";
 import { makeImgPath } from "../util";
 
@@ -45,15 +44,15 @@ const Column = styled.View`
   margin-left: 15px;
 `;
 
-const Title = styled.Text`
+const Title = styled.Text<{ isDark: boolean }>`
   font-size: 20px;
   font-weight: 600;
-  color: white;
+  color: ${(props) => (props.isDark ? "#fff" : props.theme.textColor)};
 `;
 
-const OverView = styled.Text`
+const OverView = styled.Text<{ isDark: boolean }>`
   margin-top: 10px;
-  color: rgba(255, 255, 255, 0.6);
+  color: ${(props) => (props.isDark ? "#fff" : props.theme.textColor)};
 `;
 
 const Votes = styled(OverView)`
@@ -105,11 +104,13 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
               <Wrapper>
                 <Poster source={{ uri: makeImgPath(movie.poster_path) }} />
                 <Column>
-                  <Title>{movie.original_title}</Title>
-                  <OverView>{movie.overview.slice(0, 80)}...</OverView>
+                  <Title isDark={isDark}>{movie.original_title}</Title>
                   {movie.vote_average > 0 ? (
-                    <Votes>⭐️{movie.vote_average} / 10</Votes>
+                    <Votes isDark={isDark}>⭐️{movie.vote_average} / 10</Votes>
                   ) : null}
+                  <OverView isDark={isDark}>
+                    {movie.overview.slice(0, 80)}...
+                  </OverView>
                 </Column>
               </Wrapper>
             </BlurView>
