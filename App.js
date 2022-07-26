@@ -1,16 +1,16 @@
 import AppLoading from "expo-app-loading";
-import React, { useState } from "react";
-import { Text, Image, useColorScheme } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
+import React from "react";
+import { useColorScheme } from "react-native";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset, useAssets } from "expo-asset";
 import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "./navigation/Tabs";
-import Stack from "./navigation/Stack";
 import Root from "./navigation/Root";
 import { ThemeProvider } from "styled-components/native";
 import { darkTheme, lightTheme } from "./styled";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const isDark = useColorScheme() === "dark";
@@ -20,10 +20,12 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <ThemeProvider theme={isDark ? lightTheme : darkTheme}>
-      <NavigationContainer>
-        <Root />
-      </NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={isDark ? lightTheme : darkTheme}>
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

@@ -14,8 +14,6 @@ import HMedia from "../components/HMedia";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
 
-const API_KEY = "10923b261ba94d897ac6b81148314a3f";
-
 const Container = styled.ScrollView``;
 
 const Loader = styled.View`
@@ -89,11 +87,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   useEffect(() => {
     getData();
   }, []);
-  const onRefresh = async () => {
-    setRefreshing(true);
-    getData();
-    setRefreshing(false);
-  };
+  const onRefresh = async () => {};
 
   const renderVMedia = ({ item }) => (
     <VMedia
