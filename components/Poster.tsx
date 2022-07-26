@@ -5,6 +5,7 @@ import { makeImgPath } from "../util";
 const Image = styled.Image`
   width: 100px;
   height: 160px;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
 `;
 
