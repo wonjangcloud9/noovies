@@ -13,7 +13,7 @@ import Swiper from "react-native-swiper";
 import HMedia from "../components/HMedia";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
-import { moviesAPI } from "../api";
+import { MovieResponse, moviesAPI } from "../api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Container = styled.ScrollView``;
@@ -59,19 +59,19 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     data: nowPlayingData,
     refetch: refetchNowPlaying,
     isRefetching: isRefetchingNowPlaying,
-  } = useQuery(["movies", "nowPlaying"], moviesAPI.nowPlaying);
+  } = useQuery<MovieResponse>(["movies", "nowPlaying"], moviesAPI.nowPlaying);
   const {
     isLoading: upcomingLoading,
     data: upcomingData,
     refetch: refetchUpcoming,
     isRefetching: isRefetchingUpcoming,
-  } = useQuery(["movies", "upcoming"], moviesAPI.upcoming);
+  } = useQuery<MovieResponse>(["movies", "upcoming"], moviesAPI.upcoming);
   const {
     isLoading: trendingLoading,
     data: trendingData,
     refetch: refetchTrending,
     isRefetching: isRefetchingTrending,
-  } = useQuery(["movies", "trending"], moviesAPI.trending);
+  } = useQuery<MovieResponse>(["movies", "trending"], moviesAPI.trending);
   const onRefresh = async () => {
     queryClient.refetchQueries(["movies"]);
   };
