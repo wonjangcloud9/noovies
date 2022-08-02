@@ -16,6 +16,7 @@ import VMedia from "../components/VMedia";
 import { MovieResponse, moviesAPI } from "../api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "../components/Loader";
+import HList from "../components/HList";
 
 const Container = styled.ScrollView``;
 
@@ -102,26 +103,9 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
               />
             ))}
           </Swiper>
-          <ListContainer>
-            <ListTitle>Trending Movies</ListTitle>
-            {trendingData ? (
-              <TrendingScroll
-                data={trendingData.results}
-                horizontal
-                keyExtractor={(item) => item.id.toString()}
-                contentContainerStyle={{ paddingHorizontal: 30 }}
-                showsHorizontalScrollIndicator={false}
-                ItemSeparatorComponent={VSeparator}
-                renderItem={({ item }) => (
-                  <VMedia
-                    posterPath={item.poster_path}
-                    originalTitle={item.original_title}
-                    voteAverage={item.vote_average}
-                  />
-                )}
-              />
-            ) : null}
-          </ListContainer>
+          {upcomingData ? (
+            <HList title="Coming Soon" data={upcomingData.results} />
+          ) : null}
           <ComingSoonTitle>Coming Soon</ComingSoonTitle>
         </>
       }
