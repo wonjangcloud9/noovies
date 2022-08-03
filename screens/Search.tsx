@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { moviesAPI, tvAPI } from "../api";
+import HList from "../components/HList";
+import Loader from "../components/Loader";
 
 const Container = styled.ScrollView``;
 
@@ -11,6 +13,7 @@ const SearchBar = styled.TextInput`
   border-radius: 15px;
   width: 90%;
   margin: 10px auto;
+  margin-bottom: 40px;
 `;
 
 const Search = () => {
@@ -46,6 +49,9 @@ const Search = () => {
         onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
       />
+      {moviesLoading || tvLoading ? <Loader /> : null}
+      {moviesData ? <HList title="Movies" data={moviesData.results} /> : null}
+      {moviesData ? <HList title="Tv" data={tvData.results} /> : null}
     </Container>
   );
 };
