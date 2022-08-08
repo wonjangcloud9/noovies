@@ -95,8 +95,8 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
               />
             ))}
           </Swiper>
-          {upcomingData ? (
-            <HList title="Coming Soon" data={upcomingData.results} />
+          {trendingData ? (
+            <HList title="Trending Movies" data={trendingData.results} />
           ) : null}
           <ComingSoonTitle>Coming Soon</ComingSoonTitle>
         </>
