@@ -2,11 +2,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import { Movie, TV } from "../api";
+import { Movie, moviesAPI, TV, tvAPI } from "../api";
 import Poster from "../components/Poster";
 import { makeImgPath } from "../util";
 import { LinearGradient } from "expo-linear-gradient";
 import { Black } from "../colors";
+import { useQuery } from "@tanstack/react-query";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -47,6 +48,22 @@ const Detail: React.FC<DetailScreenProps> = ({
   navigation: { setOptions },
   route: { params },
 }) => {
+  const { isLoading: moviesLoading, data: moviesData } = useQuery(
+    ["movies", params.id],
+    moviesAPI.detail,
+    {
+      enabled: "original_title" in params,
+    }
+  );
+  const { isLoading: tvLoading, data: tvData } = useQuery(
+    ["tv", params.id],
+    tvAPI.detail,
+    {
+      enabled: "original_name" in params,
+    }
+  );
+  console.log("movies", moviesData);
+  console.log("tv", tvData);
   useEffect(() => {
     setOptions({
       title: "original_title" in params ? "Movie" : "TV Show",
