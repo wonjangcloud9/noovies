@@ -14,7 +14,11 @@ import HMedia from "../components/HMedia";
 import Slide from "../components/Slide";
 import VMedia from "../components/VMedia";
 import { MovieResponse, moviesAPI } from "../api";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import Loader from "../components/Loader";
 import HList from "../components/HList";
 
@@ -54,7 +58,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const { isLoading: nowPlayingLoading, data: nowPlayingData } =
     useQuery<MovieResponse>(["movies", "nowPlaying"], moviesAPI.nowPlaying);
   const { isLoading: upcomingLoading, data: upcomingData } =
-    useQuery<MovieResponse>(["movies", "upcoming"], moviesAPI.upcoming);
+    useInfiniteQuery<MovieResponse>(["movies", "upcoming"], moviesAPI.upcoming);
   const { isLoading: trendingLoading, data: trendingData } =
     useQuery<MovieResponse>(["movies", "trending"], moviesAPI.trending);
   const onRefresh = async () => {
@@ -64,11 +68,15 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   };
 
   const loading = nowPlayingLoading || upcomingLoading || trendingLoading;
-
+  const loadMore = () => {
+    alert("loadMore");
+  };
   return loading ? (
     <Loader />
   ) : upcomingData ? (
     <FlatList
+      onEndReachedThreshold={0.4}
+      onEndReached={loadMore}
       onRefresh={onRefresh}
       refreshing={refreshing}
       ListHeaderComponent={
@@ -102,7 +110,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           <ComingSoonTitle>Coming Soon</ComingSoonTitle>
         </>
       }
-      data={upcomingData.results}
+      data={upcomingData.pages.map((page) => page.results).flat()}
       ItemSeparatorComponent={HSeparator}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
